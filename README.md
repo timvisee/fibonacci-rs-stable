@@ -4,7 +4,7 @@ A Fibonacci generator written in Rust. It's generic for types that implement `nu
 `num::One`, `num::CheckedAdd`, and `Clone`.
 
 There is no stipulation that the type be `num::Unsigned`, but the generator will never generate a
-signed number.
+negative number.
 
 The generator handles overflow by returning `None`, stopping the iterator. For example,
 `Fibonacci<u64>` will overflow after the ninety-second element, so the iterator will end after
