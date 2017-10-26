@@ -43,7 +43,7 @@ impl<T> Default for Fibonacci<T>
 }
 
 impl<T> Iterator for Fibonacci<T>
-  where T: Debug + CheckedAdd + Copy
+  where T: Debug + CheckedAdd + Clone
 {
   type Item = T;
 
@@ -51,7 +51,7 @@ impl<T> Iterator for Fibonacci<T>
     let n = self.last_two.0.checked_add(&self.last_two.1);
     if let Some(ref x) = n {
       std::mem::swap(&mut self.last_two.0, &mut self.last_two.1);
-      self.last_two.1 = *x;
+      self.last_two.1 = x.clone();
     }
     n
   }
