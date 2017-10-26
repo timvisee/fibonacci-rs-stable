@@ -1,3 +1,12 @@
+//! Generate Fibonacci sequence numbers.
+//!
+//! ```
+//! # use fibonacci::Fibonacci;
+//! // Collect all of the Fibonacci numbers that fit inside a u8.
+//! let some_numbers: Vec<u8> = Fibonacci::default().collect();
+//! println!("{:?}", some_numbers);
+//! ```
+
 #![feature(test)]
 
 extern crate num;
@@ -8,6 +17,18 @@ mod test;
 use num::{Zero, One, CheckedAdd};
 use std::fmt::Debug;
 
+/// A generic Fibonacci sequence generator.
+///
+/// The iterator ends whenever the generic type overflows from the result of adding the last two
+/// numbers together. For example, a `Fibonacci<u8>` will only generate 12 elements.
+///
+/// ```
+/// # use fibonacci::Fibonacci;
+/// assert_eq!(12, Fibonacci::<u8>::default().take(13).collect::<Vec<_>>().len())
+/// ```
+///
+/// If you need more elements than primitives can provide, try `Fibonacci<num::BigUint>`, which will
+/// never overflow.
 #[derive(Debug)]
 pub struct Fibonacci<T> {
   last_two: (T, T)
