@@ -31,3 +31,14 @@ fn overflow() {
 fn non_overflow() {
   assert_eq!(300, Fibonacci::<BigUint>::default().take(300).collect::<Vec<_>>().len());
 }
+
+#[test]
+fn reset() {
+  let mut fib: Fibonacci<u8> = Fibonacci::default();
+  for _ in 0..12 {
+    fib.next();
+  }
+  assert_eq!(None, fib.next());
+  fib.reset();
+  assert_eq!(Some(1), fib.next());
+}

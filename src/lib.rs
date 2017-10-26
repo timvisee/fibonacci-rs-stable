@@ -4,7 +4,7 @@
 //! # use fibonacci::Fibonacci;
 //! // Collect all of the Fibonacci numbers that fit inside a u8.
 //! let some_numbers: Vec<u8> = Fibonacci::default().collect();
-//! println!("{:?}", some_numbers);
+//! assert_eq!(some_numbers, vec![1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
 //! ```
 
 #![feature(test)]
@@ -54,5 +54,17 @@ impl<T> Iterator for Fibonacci<T>
       self.last_two.1 = x.clone();
     }
     n
+  }
+}
+
+impl<T> Fibonacci<T>
+  where T: Debug + Zero + One
+{
+  /// Reset this generator back to its state at construction.
+  ///
+  /// Calling this will cause the generator to continue generating numbers from the start, even if
+  /// it has terminated.
+  pub fn reset(&mut self) {
+    self.last_two = (T::zero(), T::one());
   }
 }
