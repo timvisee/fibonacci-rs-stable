@@ -2,6 +2,10 @@
 name = "fibonacci"
 version = "0.1.0"
 authors = ["Kyle Clemens <fibonacci-rs@kyleclemens.com>"]
+description = "A generic Fibonacci sequence generator"
+license = "MPL-2.0"
+documentation = "https://docs.rs/fibonacci"
+repository = "https://github.com/jkcclemens/fibonacci"
 
 [dependencies]
 num = "0.1"
