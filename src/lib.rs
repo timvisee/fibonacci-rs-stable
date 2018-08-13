@@ -12,7 +12,7 @@ extern crate num;
 #[cfg(test)]
 mod test;
 
-use num::{Zero, One, CheckedAdd};
+use num::{CheckedAdd, One, Zero};
 use std::fmt::Debug;
 
 /// A generic Fibonacci sequence generator.
@@ -29,40 +29,45 @@ use std::fmt::Debug;
 /// never overflow.
 #[derive(Debug)]
 pub struct Fibonacci<T> {
-  last_two: (T, T)
+    last_two: (T, T),
 }
 
 impl<T> Default for Fibonacci<T>
-  where T: Debug + Zero + One
+where
+    T: Debug + Zero + One,
 {
-  fn default() -> Self {
-    Fibonacci { last_two: (T::zero(), T::one()) }
-  }
+    fn default() -> Self {
+        Fibonacci {
+            last_two: (T::zero(), T::one()),
+        }
+    }
 }
 
 impl<T> Iterator for Fibonacci<T>
-  where T: Debug + CheckedAdd + Clone
+where
+    T: Debug + CheckedAdd + Clone,
 {
-  type Item = T;
+    type Item = T;
 
-  fn next(&mut self) -> Option<Self::Item> {
-    let n = self.last_two.0.checked_add(&self.last_two.1);
-    if let Some(ref x) = n {
-      std::mem::swap(&mut self.last_two.0, &mut self.last_two.1);
-      self.last_two.1 = x.clone();
+    fn next(&mut self) -> Option<Self::Item> {
+        let n = self.last_two.0.checked_add(&self.last_two.1);
+        if let Some(ref x) = n {
+            std::mem::swap(&mut self.last_two.0, &mut self.last_two.1);
+            self.last_two.1 = x.clone();
+        }
+        n
     }
-    n
-  }
 }
 
 impl<T> Fibonacci<T>
-  where T: Debug + Zero + One
+where
+    T: Debug + Zero + One,
 {
-  /// Reset this generator back to its state at construction.
-  ///
-  /// Calling this will cause the generator to continue generating numbers from the start, even if
-  /// it has terminated.
-  pub fn reset(&mut self) {
-    self.last_two = (T::zero(), T::one());
-  }
+    /// Reset this generator back to its state at construction.
+    ///
+    /// Calling this will cause the generator to continue generating numbers from the start, even if
+    /// it has terminated.
+    pub fn reset(&mut self) {
+        self.last_two = (T::zero(), T::one());
+    }
 }
