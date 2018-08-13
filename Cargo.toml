@@ -8,4 +8,4 @@ documentation = "https://docs.rs/fibonacci"
 repository = "https://github.com/jkcclemens/fibonacci"
 
 [dependencies]
-num = "0.1"
+num = "0.2"
