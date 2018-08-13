@@ -7,8 +7,6 @@
 //! assert_eq!(some_numbers, vec![1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
 //! ```
 
-#![feature(test)]
-
 extern crate num;
 
 #[cfg(test)]
